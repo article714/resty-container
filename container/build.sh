@@ -14,10 +14,10 @@ LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -qy --no-install-recomme
 
 # Install Resty from pre-built packages
 
-wget -O - https://openresty.org/package/pubkey.gpg | sudo apt-key add -
+wget -O - https://openresty.org/package/pubkey.gpg | apt-key add -
 
 codename=$(grep -Po 'VERSION="[0-9]+ \(\K[^)]+' /etc/os-release)
-echo "deb http://openresty.org/package/debian $codename openresty" | sudo tee /etc/apt/sources.list.d/openresty.list
+echo "deb http://openresty.org/package/debian $codename openresty" | tee /etc/apt/sources.list.d/openresty.list
 
 apt-get update
 apt-get upgrade -yq
