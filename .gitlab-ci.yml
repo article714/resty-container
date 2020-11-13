@@ -34,6 +34,6 @@ test_image:
   script:
     - runsvdir -P $SVDIR &
     - sleep 5
-    - curl -v http://resty-srv/
+    - curl -v http://resty-srv:8080/
 
 
