@@ -28,6 +28,13 @@ apt-get -y install --no-install-recommends openresty openresty-opm
 
 opm install zmartzone/lua-resty-openidc
 
+# NGINX user
+addgroup nginx
+adduser --system --home /var/www --quiet nginx
+adduser nginx syslog
+
+chown -R nginx /container/config/resty
+
 #--
 # Cleaning
 

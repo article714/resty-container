@@ -1,4 +1,8 @@
 #!/bin/sh
 exec 2>&1
 
-exec /usr/local/openresty/bin/openresty -g 'daemon off;' -c /container/config/resty/nginx.conf
+touch /var/log/nginx-access.log
+touch /var/log/nginx-error.log
+chown nginx.syslog /var/log/nginx*
+
+exec chpst -u nginx /usr/local/openresty/bin/openresty -g 'daemon off;' -c /container/config/resty/nginx.conf
