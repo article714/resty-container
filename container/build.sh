@@ -35,6 +35,7 @@ adduser nginx syslog
 
 chown -R nginx /container/config/resty
 chown -R nginx /usr/local/openresty/nginx
+chown -R nginx:nginx /var/cache/nginx
 
 #--
 # Cleaning

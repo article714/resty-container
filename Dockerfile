@@ -13,3 +13,7 @@ COPY container /container
 # container building
 
 RUN /container/build.sh
+
+# port exposed (default)
+
+EXPOSE 8080
