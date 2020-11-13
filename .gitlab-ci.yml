@@ -1,0 +1,39 @@
+stages:
+  - build
+  - tests
+  - publish_images
+
+variables:
+  RESTY_CONTAINER_VERSION: '0.1.0'
+
+#-----------------------------------------
+build_image:
+  stage: build
+  tags:
+    - shell
+  variables:
+    BUILD_OPTS: '--force-rm --no-cache'
+  script:
+    - docker build ${BUILD_OPTS} -t article714/resty-container:${RESTY_CONTAINER_VERSION}  --build-arg RESTY_CONTAINER_VERSION=${RESTY_CONTAINER_VERSION} .
+
+#------------------------------------------
+# QCheck (TODO)
+
+#------------------------------------------
+# Tests
+
+test_image:
+  stage: tests
+  image:
+    name: article714/resty-container:${RESTY_CONTAINER_VERSION}
+  services:
+    - name: article714/resty-container:${RESTY_CONTAINER_VERSION}
+      alias: resty-srv
+  tags:
+    - docker
+  script:
+    - runsvdir -P $SVDIR &
+    - sleep 5
+    - curl -v http://resty-srv/
+
+
