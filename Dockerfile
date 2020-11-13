@@ -14,6 +14,8 @@ COPY container /container
 
 RUN /container/build.sh
 
+WORKDIR /home/nginx
+
 # port exposed (default)
 
 EXPOSE 8080
