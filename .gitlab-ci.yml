@@ -33,7 +33,7 @@ test_image:
   script:
     - runsvdir -P $SVDIR &
     - sleep 5
-    - curl -v http://resty-srv:8080/
+    - curl -v http://127.0.0.1:8080/
 
 #-----------------------------------------
 publish_release:
