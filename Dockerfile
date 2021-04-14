@@ -1,4 +1,4 @@
-FROM article714/debian-based-container:latest
+FROM article714/debian-based-container:0.8.0
 LABEL maintainer="C. Guychard <Article714>"
 
 

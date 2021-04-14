@@ -1,20 +1,26 @@
+include:
+  - project: 'article714/build-tools'
+    ref: master
+    file: 'ci/python-job-templates.yml'
+  - project: 'article714/build-tools'
+    ref: master
+    file: 'ci/docker-job-templates.yml'
+
 stages:
+  - quality
   - build
-  - tests
-  - publish_images
+  - test
+  - security
+  - publish
 
 variables:
-  RESTY_CONTAINER_VERSION: '0.1.0'
+  IMAGE_NAME: 'resty-container'
 
 #-----------------------------------------
 build_image:
-  stage: build
-  tags:
-    - shell
+  extends: .build_image
   variables:
-    BUILD_OPTS: '--force-rm --no-cache'
-  script:
-    - docker build ${BUILD_OPTS} -t article714/resty-container:${RESTY_CONTAINER_VERSION}  --build-arg RESTY_CONTAINER_VERSION=${RESTY_CONTAINER_VERSION} .
+    DOCKER_ADDTL_PARAMS: ''
 
 #------------------------------------------
 # QCheck (TODO)
@@ -23,17 +29,24 @@ build_image:
 # Tests
 
 test_image:
-  stage: tests
-  image:
-    name: article714/resty-container:${RESTY_CONTAINER_VERSION}
-  services:
-    - name: article714/resty-container:${RESTY_CONTAINER_VERSION}
-      alias: resty-srv
-  tags:
-    - docker
+  extends: .test_image
   script:
     - runsvdir -P $SVDIR &
     - sleep 5
     - curl -v http://resty-srv:8080/
 
+#-----------------------------------------
+publish_release:
+  extends: .publish_image
+  variables:
+    IMAGE_TAG: ${CI_COMMIT_TAG}
+  rules:
+    - if: $CI_COMMIT_TAG
 
+publish_latest:
+  extends: .publish_image
+  variables:
+    IMAGE_TAG: 'latest'
+  only:
+    refs:
+      - production
