@@ -11,3 +11,10 @@ Trois branches principales sont utilisées pour construire ce projet:
 - **production**, utilisée pour la publication des images docker "latest"
 
 Les versions officielles (hors _latest_) sont produites à partir d'un **tag** au format _X.Y.Z_
+
+### Nouvelle mise à jour
+
+Installation des dépendances: `lua-resty-http, lua-resty-session et lua-resty-jwt`.
+
+
+Les deux premières dépendances acceptent la gestion de session et les fonctions du client HTTP. La dernière, est utile si on souhaite réaliser un OpenID Connect RP ou un serveur OAuth 2.0 qui consomme des jetons d'accès JWT.

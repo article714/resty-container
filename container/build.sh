@@ -28,6 +28,35 @@ apt-get -y install --no-install-recommends openresty openresty-opm
 
 opm install zmartzone/lua-resty-openidc
 
+# Install development tools
+apt-get -y install build-essential libreadline-dev
+
+# Install Lua 5.3.5
+curl -R -O http://www.lua.org/ftp/lua-5.3.5.tar.gz
+tar -zxf lua-5.3.5.tar.gz
+cd lua-5.3.5
+make linux test
+sudo make install
+cd ..
+
+# Install unzip for Luarocks
+apt-get install unzip 
+
+# Install Luarocks 3.3.1
+wget https://luarocks.org/releases/luarocks-3.3.1.tar.gz
+tar zxpf luarocks-3.3.1.tar.gz
+cd luarocks-3.3.1
+./configure --with-lua-include=/usr/local/include
+make
+make install
+
+# Install Lua dependencies
+luarocks install lua-resty-http
+luarocks install lua-resty-session
+luarocks install lua-resty-jwt
+
+
+
 # NGINX user
 addgroup nginx
 adduser --system --home /var/www --quiet nginx
