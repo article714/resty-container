@@ -58,7 +58,7 @@ chown -R nginx:nginx /var/cache/nginx
 #--
 # Cleaning
 
-apt-get purge gcc  build-essential libreadline-dev liblua5.3-dev
+apt-get purge -yq gcc  build-essential libreadline-dev liblua5.3-dev
 apt-get -yq clean
 apt-get -yq autoremove
 rm -rf /var/lib/apt/lists/*
