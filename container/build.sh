@@ -22,25 +22,27 @@ echo "deb http://openresty.org/package/debian $codename openresty" | tee /etc/ap
 apt-get update
 apt-get upgrade -yq
 
-apt-get -y install --no-install-recommends openresty openresty-opm
+# Install Openresty and Lua 5.3
+apt-get -y install openresty openresty-resty lua5.3 unzip 
 
-# Install oidc support for Resty
-
-opm install zmartzone/lua-resty-openidc
 
 # Install development tools
-apt-get -y install build-essential libreadline-dev
-
-# Install Lua 5.3
-apt-get -y install lua5.3
+apt-get -y install build-essential libreadline-dev liblua5.3-dev
 
 # Install Luarocks
-apt-get -y install luarocks
+cd /tmp
+wget https://luarocks.org/releases/luarocks-3.3.1.tar.gz
+tar zxpf luarocks-3.3.1.tar.gz
+cd luarocks-3.3.1
+./configure --with-lua-include=/usr/include
+make install
 
-# Install Lua dependencies
-luarocks install lua-resty-http
-luarocks install lua-resty-session
-luarocks install lua-resty-jwt
+
+# Install Lua dependencies for openidc & jwt
+/usr/local/bin/luarocks install lua-resty-http
+/usr/local/bin/luarocks install lua-resty-session
+/usr/local/bin/luarocks install lua-resty-jwt
+/usr/local/bin/luarocks install lua-resty-openidc
 
 
 
@@ -56,8 +58,8 @@ chown -R nginx:nginx /var/cache/nginx
 #--
 # Cleaning
 
+apt-get purge gcc  build-essential libreadline-dev liblua5.3-dev
 apt-get -yq clean
 apt-get -yq autoremove
 rm -rf /var/lib/apt/lists/*
-rm -rf /tmp/ci
-rm -f tmp/*_dependencies.txt
+rm -rf /tmp/*
