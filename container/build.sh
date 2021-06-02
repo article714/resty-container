@@ -44,7 +44,8 @@ make install
 /usr/local/bin/luarocks install lua-resty-jwt
 /usr/local/bin/luarocks install lua-resty-openidc
 
-
+# Temporary solution for some files
+opm install zmartzone/lua-resty-openidc
 
 # NGINX user
 addgroup nginx
