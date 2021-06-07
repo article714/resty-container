@@ -22,12 +22,11 @@ echo "deb http://openresty.org/package/debian $codename openresty" | tee /etc/ap
 apt-get update
 apt-get upgrade -yq
 
-# Temporary solution for some files
-opm install zmartzone/lua-resty-openidc
-
 # Install Openresty and Lua 5.3
 apt-get -y install openresty openresty-resty lua5.3 unzip 
 
+# Temporary solution for some files
+opm install zmartzone/lua-resty-openidc
 
 # Install development tools
 apt-get -y install build-essential libreadline-dev liblua5.3-dev
