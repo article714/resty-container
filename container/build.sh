@@ -22,6 +22,9 @@ echo "deb http://openresty.org/package/debian $codename openresty" | tee /etc/ap
 apt-get update
 apt-get upgrade -yq
 
+# Temporary solution for some files
+opm install zmartzone/lua-resty-openidc
+
 # Install Openresty and Lua 5.3
 apt-get -y install openresty openresty-resty lua5.3 unzip 
 
@@ -37,15 +40,11 @@ cd luarocks-3.3.1
 ./configure --with-lua-include=/usr/include
 make install
 
-# Temporary solution for some files
-opm install zmartzone/lua-resty-openidc
-
 # Install Lua dependencies for openidc & jwt
 /usr/local/bin/luarocks install lua-resty-http
 /usr/local/bin/luarocks install lua-resty-session
 /usr/local/bin/luarocks install lua-resty-jwt
 /usr/local/bin/luarocks install lua-resty-openidc
-
 
 # NGINX user
 addgroup nginx
