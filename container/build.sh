@@ -37,15 +37,14 @@ cd luarocks-3.3.1
 ./configure --with-lua-include=/usr/include
 make install
 
+# Temporary solution for some files
+opm install zmartzone/lua-resty-openidc
 
 # Install Lua dependencies for openidc & jwt
 /usr/local/bin/luarocks install lua-resty-http
 /usr/local/bin/luarocks install lua-resty-session
 /usr/local/bin/luarocks install lua-resty-jwt
 /usr/local/bin/luarocks install lua-resty-openidc
-
-# Temporary solution for some files
-opm install zmartzone/lua-resty-openidc
 
 
 # NGINX user
