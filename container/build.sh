@@ -25,9 +25,6 @@ apt-get upgrade -yq
 # Install Openresty and Lua 5.3
 apt-get -y install openresty openresty-resty lua5.3 unzip 
 
-apt-get -y install --no-install-recommends openresty-opm
-
-
 # Install development tools
 apt-get -y install build-essential libreadline-dev liblua5.3-dev
 
@@ -44,9 +41,6 @@ make install
 /usr/local/bin/luarocks install lua-resty-session
 /usr/local/bin/luarocks install lua-resty-jwt
 /usr/local/bin/luarocks install lua-resty-openidc
-
-# Temporary solution for some files
-opm install zmartzone/lua-resty-openidc
 
 # NGINX user
 addgroup nginx
